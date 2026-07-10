@@ -44,6 +44,14 @@ jobs:
       - run: npx playwright test
         env:
           TARGET_URL: ${{ inputs.custom_url != '' && inputs.custom_url || inputs.site }}
+      - name: Archive report to results history
+        if: ${{ !cancelled() }}
+        run: |
+          RUN="$(date +%Y-%m-%d_%H-%M-%S)_${{ github.run_number }}"
+          DEST="$HOME/test-results/$RUN"
+          mkdir -p "$DEST"
+          cp -r playwright-report/* "$DEST"/ 2>/dev/null || true
+          echo "Archived to $DEST"
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
