@@ -1,6 +1,16 @@
 name: Runner PoC
 on:
   workflow_dispatch:
+    inputs:
+      url:
+        description: 'Which URL to test'
+        type: choice
+        required: true
+        default: 'https://playwright.dev'
+        options:
+          - 'https://playwright.dev'
+          - 'https://example.com'
+          - 'https://www.google.com'
 jobs:
   test:
     runs-on: [self-hosted, linux, homelab]
@@ -9,3 +19,5 @@ jobs:
       - run: npm install
       - run: npx playwright install chromium
       - run: npx playwright test
+        env:
+          TARGET_URL: ${{ inputs.url }}
