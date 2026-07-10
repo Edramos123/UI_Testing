@@ -1,0 +1,11 @@
+name: Runner PoC
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: [self-hosted, linux, homelab]
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install
+      - run: npx playwright install chromium
+      - run: npx playwright test
