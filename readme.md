@@ -1,6 +1,6 @@
 # Runbook — Playwright UI Testing Pipeline (Work Environment)
 
-**Purpose:** Stand up automated Playwright UI testing for Ignition HMI projects, triggered and gated through Jira (Project ARGUS) and executed via GitHub Actions on a self-hosted runner.
+**Purpose:** Stand up automated Playwright UI testing for Ignition HMI projects, triggered and gated through Jira and executed via GitHub Actions on a self-hosted runner.
 
 **Scope of this document:** every step proven in the homelab proof-of-concept, adapted for the corporate environment. The runner VM itself is provisioned by the internal infrastructure team and is therefore out of scope here — this runbook picks up once a Linux VM exists and is reachable.
 
