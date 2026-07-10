@@ -6,10 +6,11 @@ on:
         description: 'Dropdown — pick a known URL'
         type: choice
         required: true
-        default: 'https://playwright.dev'
+        default: 'https://www.nba.com'
         options:
-          - 'https://playwright.dev'
-          - 'https://example.com'
+          - 'https://www.nba.com'
+          - 'http://192.168.1.30:8088/web/home?0'
+          - 'https://www.espn.com'
           - 'https://www.google.com'
       custom_url:
         description: 'Text box — paste any URL (overrides dropdown)'
