@@ -2,8 +2,8 @@ name: Runner PoC
 on:
   workflow_dispatch:
     inputs:
-      url:
-        description: 'Which URL to test'
+      site:
+        description: 'Dropdown — pick a known URL'
         type: choice
         required: true
         default: 'https://playwright.dev'
@@ -11,6 +11,22 @@ on:
           - 'https://playwright.dev'
           - 'https://example.com'
           - 'https://www.google.com'
+      custom_url:
+        description: 'Text box — paste any URL (overrides dropdown)'
+        type: string
+        default: ''
+      full_suite:
+        description: 'Checkbox — run all tests?'
+        type: boolean
+        default: false
+      retries:
+        description: 'Number — how many retries'
+        type: number
+        default: 0
+      target_env:
+        description: 'Environment picker'
+        type: environment
+        required: false
 jobs:
   test:
     runs-on: [self-hosted, linux, homelab]
@@ -18,6 +34,13 @@ jobs:
       - uses: actions/checkout@v4
       - run: npm install
       - run: npx playwright install chromium
+      - name: Show what was selected
+        run: |
+          echo "Dropdown site:   ${{ inputs.site }}"
+          echo "Custom URL:      ${{ inputs.custom_url }}"
+          echo "Full suite:      ${{ inputs.full_suite }}"
+          echo "Retries:         ${{ inputs.retries }}"
+          echo "Environment:     ${{ inputs.target_env }}"
       - run: npx playwright test
         env:
-          TARGET_URL: ${{ inputs.url }}
+          TARGET_URL: ${{ inputs.custom_url != '' && inputs.custom_url || inputs.site }}
